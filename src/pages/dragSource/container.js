@@ -29,7 +29,7 @@ export default () => {
   const moveCard = (fieldName, atIndex, dropItem) => {
     const { card, index } = findCard(fieldName);
     const key = onCalcPos(atIndex, index, dropItem, cards, card);
-    // console.error(111, fieldName, card, index, atIndex, key);
+    // console.error(111, fieldName, card, index, atIndex, key, dropItem);
     const result = onUpdate(cards, key, card, dropItem);
     setCards(result);
   };

@@ -43,14 +43,47 @@ export const onGetIndex = (
   return card;
 };
 
+// 处理向下滑动
+const onToBottom = (atIndex, index, cards) => {
+  let [atGroup, atSalary, atField] = atIndex;
+  const [group, salary] = index;
+  if (index?.length === 1) {
+    // 一层拖拽，下面还有项时
+    if (cards[group + 1]) {
+      atGroup = group + 1;
+      atSalary = undefined;
+      atField = undefined;
+    }
+  } else if (index?.length === 2) {
+    // 二层拖拽，下面还有项时
+    if (cards[group]?.children?.[salary + 1]) {
+      atSalary = salary + 1;
+      atField = undefined;
+    } else {
+      // 下面没有项时，拖到一层
+      atGroup = group + 1;
+      atSalary = undefined;
+      atField = undefined;
+    }
+  }
+  return [atGroup, atSalary, atField];
+};
+
 // 根据拖拽index、放开的索引atIndex计算最终位置
 export const onCalcPos = (atIndex, index, dropItem, cards, card) => {
   const { offsetY } = dropItem;
-  let [atGroup, atSalary, atField] = atIndex;
-  let [group, salary, field] = index;
   // const isAdd = Math.abs(offsetY) > 20 && Math.abs(offsetY) < 55;
   const isAdd = false;
-  // const hasChildren = card?.children?.length > 0;
+  const hasChildren = card?.children?.length > 0;
+  const IsHasChildrenAndToBottom = hasChildren && offsetY > 0; // 多层 且 向下移动，情况：一层、二层
+  if (IsHasChildrenAndToBottom) {
+    atIndex = onToBottom(atIndex, index, cards);
+  }
+  // 去除数组中的 undefined
+  atIndex = atIndex?.filter(ele => ele !== undefined);
+  let [atGroup, atSalary, atField] = atIndex;
+  let [group, salary, field] = index;
+  // console.error(222, atGroup, atSalary, atField, group, salary, field, index, atIndex)
   // 一层数据
   if (index?.length === 1) {
     // 释放在一层

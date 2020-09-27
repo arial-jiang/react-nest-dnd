@@ -14,15 +14,20 @@ const fixStyles = {
   height: '100%',
 };
 
-function getFixedStyles(initialOffset, currentOffset) {
+function getFixedStyles(initialOffset, currentOffset, differenceOffset) {
   if (!initialOffset || !currentOffset) {
     return {
       display: 'none',
     };
   }
-  const { x } = initialOffset;
-  const { y } = currentOffset;
-  const transform = `translate(${x}px, ${y}px)`;
+  const { x, y } = initialOffset;
+  const { y: currentY } = currentOffset;
+  const { y: offsetY } = differenceOffset;
+  let showY = y;
+  if (Math.abs(offsetY) > 50) {
+    showY = currentY;
+  }
+  const transform = `translate(${x}px, ${showY}px)`;
   return {
     transform,
     WebkitTransform: transform,
@@ -37,6 +42,7 @@ const layerStyles = {
   top: 0,
   width: 400,
   height: '100%',
+  backgroundColor: 'transparent',
 };
 
 function getItemStyles(currentOffset) {
@@ -54,15 +60,20 @@ function getItemStyles(currentOffset) {
 }
 
 export default () => {
-  const { isDragging, dragItem, initialOffset, currentOffset } = useDragLayer(
-    monitor => ({
-      dragItem: monitor.getItem(),
-      itemType: monitor.getItemType(),
-      initialOffset: monitor.getInitialSourceClientOffset(),
-      currentOffset: monitor.getSourceClientOffset(),
-      isDragging: monitor.isDragging(),
-    }),
-  );
+  const {
+    isDragging,
+    dragItem,
+    initialOffset,
+    currentOffset,
+    differenceOffset,
+  } = useDragLayer(monitor => ({
+    dragItem: monitor.getItem(),
+    itemType: monitor.getItemType(),
+    initialOffset: monitor.getInitialSourceClientOffset(),
+    currentOffset: monitor.getSourceClientOffset(),
+    isDragging: monitor.isDragging(),
+    differenceOffset: monitor.getDifferenceFromInitialOffset(),
+  }));
   if (!isDragging) {
     return null;
   }
@@ -96,7 +107,9 @@ export default () => {
     <div>
       {/* 拖拽后一个假的结构，用来覆盖未拖动的项 */}
       <div style={fixStyles}>
-        <div style={getFixedStyles(initialOffset, currentOffset)}>
+        <div
+          style={getFixedStyles(initialOffset, currentOffset, differenceOffset)}
+        >
           <CardLayer
             key={dragItem?.fieldName}
             label={dragItem?.label}

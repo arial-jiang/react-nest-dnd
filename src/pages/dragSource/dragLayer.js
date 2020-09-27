@@ -23,13 +23,13 @@ function getFixedStyles(initialOffset, currentOffset, differenceOffset) {
   const { x, y } = initialOffset;
   const { y: currentY } = currentOffset;
   const { y: offsetY } = differenceOffset;
-  const scaleY = 1;
-  // const scaleY = Math.abs(offsetY)/10 + 1;
-  // console.error(111, initialOffset, currentOffset, offsetY)
-  const transform = `translate(${x}px, ${currentY}px) `;
+  // const scaleY = 1;
+  const scaleY = Math.abs(offsetY) / 100 / 1.5 + 1;
+  const transform = `translate(${x}px, ${currentY}px) matrix(1, 0, 0, ${scaleY}, 0, 0)`;
   return {
     transform,
     WebkitTransform: transform,
+    transformOrigin: 'top left',
   };
 }
 

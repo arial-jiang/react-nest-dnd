@@ -182,19 +182,6 @@ export const onCalcPos = (atIndex, index, dropItem, cards, card) => {
   return { atGroup, atSalary, atField, group, salary, field };
 };
 
-// 是否可以释放 dropItem：拖拽、释放的数据，拖拽index、放开的索引atIndex
-export const onIsDrop = (dropItem, atIndex, index) => {
-  let isDrop = true;
-  const { fieldName, depth, draggedDepth, draggedFieldName } = dropItem;
-  const [atGroup, atSalary, atField] = atIndex;
-  const [group, salary, field] = index;
-  // console.error(1111, dropItem, atIndex, index)
-  // if (isSameLayer || isChildLayer || isToChildLayer) {
-  //   isDrop = true;
-  // }
-  return isDrop;
-};
-
 export const onUpdate = (cards, key, card) => {
   const { atGroup, atSalary, atField, group, salary, field } = key;
   // console.error(atGroup, atSalary, atField, group, salary, field);

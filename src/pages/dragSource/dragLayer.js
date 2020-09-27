@@ -23,11 +23,10 @@ function getFixedStyles(initialOffset, currentOffset, differenceOffset) {
   const { x, y } = initialOffset;
   const { y: currentY } = currentOffset;
   const { y: offsetY } = differenceOffset;
-  let showY = y;
-  if (Math.abs(offsetY) > 50) {
-    showY = currentY;
-  }
-  const transform = `translate(${x}px, ${showY}px)`;
+  const scaleY = 1;
+  // const scaleY = Math.abs(offsetY)/10 + 1;
+  // console.error(111, initialOffset, currentOffset, offsetY)
+  const transform = `translate(${x}px, ${currentY}px) `;
   return {
     transform,
     WebkitTransform: transform,
@@ -42,7 +41,6 @@ const layerStyles = {
   top: 0,
   width: 400,
   height: '100%',
-  backgroundColor: 'transparent',
 };
 
 function getItemStyles(currentOffset) {
@@ -94,7 +92,7 @@ export default () => {
               key={item?.fieldName}
             >
               <CardLayer key={item?.fieldName} label={item?.label} show={show}>
-                {onDomRender(item?.children, depth + 1)}
+                {onDomRender(item?.children, depth + 1, show)}
               </CardLayer>
             </div>
           );

@@ -8,9 +8,11 @@ const style = {
   cursor: 'move',
 };
 
-export default ({ label, children }) => {
+export default ({ label, show, children }) => {
+  const color = show ? 'black' : 'white';
+  const border = show ? '1px dashed gray' : 'none';
   return (
-    <div style={{ ...style }}>
+    <div style={{ ...style, color, border }}>
       {label}
       {children}
     </div>

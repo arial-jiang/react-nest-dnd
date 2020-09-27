@@ -64,12 +64,11 @@ export default ({ fieldName, label, depth, moveCard, findCard, children }) => {
   });
 
   const opacity = isDragging ? 0 : 1;
-  const height = isDragging ? '' : 'auto';
 
   return (
     <div
       ref={node => drag(drop(node))}
-      style={{ ...style, opacity, height }}
+      style={{ ...style, opacity }}
       onClick={() => setText(1234)}
     >
       {label}

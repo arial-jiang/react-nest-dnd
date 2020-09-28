@@ -1,18 +1,16 @@
 import React from 'react';
 
-const style = {
-  border: '1px dashed gray',
-  padding: '0.5rem 1rem',
-  marginBottom: '0.5rem',
-  backgroundColor: 'white',
-  cursor: 'move',
-};
+import styles from './index.less';
 
-export default ({ label, show, children }) => {
+export default ({ label, show, depth, children }) => {
   const color = show ? 'black' : 'white';
-  const border = show ? '1px dashed gray' : 'none';
+  const borderBottom = show ? '1px solid gray' : 'none';
+  const paddingLeft = depth ? `${depth}rem` : '1rem';
   return (
-    <div style={{ ...style, color, border }}>
+    <div
+      className={styles.element}
+      style={{ color, borderBottom, paddingLeft }}
+    >
       {label}
       {children}
     </div>

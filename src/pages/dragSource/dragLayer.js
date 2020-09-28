@@ -9,7 +9,7 @@ const fixStyles = {
   pointerEvents: 'none',
   zIndex: 99,
   top: 0,
-  left: 0,
+  left: '8px',
   width: 400,
   height: '100%',
 };
@@ -23,7 +23,6 @@ function getFixedStyles(initialOffset, currentOffset, differenceOffset) {
   const { x, y } = initialOffset;
   const { y: currentY } = currentOffset;
   const { y: offsetY } = differenceOffset;
-  // const scaleY = 1;
   const scaleY = Math.abs(offsetY) / 100 / 1.5 + 1;
   const transform = `translate(${x}px, ${currentY}px) matrix(1, 0, 0, ${scaleY}, 0, 0)`;
   return {
@@ -37,7 +36,7 @@ const layerStyles = {
   position: 'fixed',
   pointerEvents: 'none',
   zIndex: 100,
-  left: 0,
+  left: '8px',
   top: 0,
   width: 400,
   height: '100%',
@@ -49,8 +48,8 @@ function getItemStyles(currentOffset) {
       display: 'none',
     };
   }
-  const { x, y } = currentOffset;
-  const transform = `translate(${x}px, ${y}px)`;
+  const { y } = currentOffset;
+  const transform = `translateY(${y}px)`;
   return {
     transform,
     WebkitTransform: transform,
@@ -91,9 +90,13 @@ export default () => {
               })}
               key={item?.fieldName}
             >
-              <CardLayer key={item?.fieldName} label={item?.label} show={show}>
-                {onDomRender(item?.children, depth + 1, show)}
-              </CardLayer>
+              <CardLayer
+                key={item?.fieldName}
+                label={item?.label}
+                show={show}
+                depth={depth}
+              ></CardLayer>
+              {onDomRender(item?.children, depth + 1, show)}
             </div>
           );
         })}
@@ -130,9 +133,9 @@ export default () => {
             key={dragItem?.fieldName}
             label={dragItem?.label}
             show={true}
-          >
-            {onDomRender(dragItem?.card?.children, dragItem?.depth + 1, true)}
-          </CardLayer>
+            depth={dragItem?.depth}
+          ></CardLayer>
+          {onDomRender(dragItem?.card?.children, dragItem?.depth + 1, true)}
         </div>
       </div>
     </div>

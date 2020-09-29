@@ -1,60 +1,11 @@
 import React from 'react';
 import { useDragLayer } from 'react-dnd';
 import classnames from 'classnames';
+
 import CardLayer from './cardLayer';
+import { getFixedStyles, getItemStyles } from './layerUtil';
+
 import styles from './index.less';
-
-const fixStyles = {
-  position: 'fixed',
-  pointerEvents: 'none',
-  zIndex: 99,
-  top: 0,
-  left: '8px',
-  width: 400,
-  height: '100%',
-};
-
-function getFixedStyles(initialOffset, currentOffset, differenceOffset) {
-  if (!initialOffset || !currentOffset) {
-    return {
-      display: 'none',
-    };
-  }
-  const { x, y } = initialOffset;
-  const { y: currentY } = currentOffset;
-  const { y: offsetY } = differenceOffset;
-  const scaleY = Math.abs(offsetY) / 100 / 1.5 + 1;
-  const transform = `translate(${x}px, ${currentY}px) matrix(1, 0, 0, ${scaleY}, 0, 0)`;
-  return {
-    transform,
-    WebkitTransform: transform,
-    transformOrigin: 'top left',
-  };
-}
-
-const layerStyles = {
-  position: 'fixed',
-  pointerEvents: 'none',
-  zIndex: 100,
-  left: '8px',
-  top: 0,
-  width: 400,
-  height: '100%',
-};
-
-function getItemStyles(currentOffset) {
-  if (!currentOffset) {
-    return {
-      display: 'none',
-    };
-  }
-  const { y } = currentOffset;
-  const transform = `translateY(${y}px)`;
-  return {
-    transform,
-    WebkitTransform: transform,
-  };
-}
 
 export default () => {
   const {
@@ -65,7 +16,6 @@ export default () => {
     differenceOffset,
   } = useDragLayer(monitor => ({
     dragItem: monitor.getItem(),
-    itemType: monitor.getItemType(),
     initialOffset: monitor.getInitialSourceClientOffset(),
     currentOffset: monitor.getSourceClientOffset(),
     isDragging: monitor.isDragging(),
@@ -107,23 +57,23 @@ export default () => {
   return (
     <div>
       {/* 拖拽后一个假的结构，用来覆盖未拖动的项 */}
-      <div style={fixStyles}>
+      <div className={classnames(styles.mask, styles.maskLayer)}>
         <div
+          className={styles.maskContainer}
           style={getFixedStyles(initialOffset, currentOffset, differenceOffset)}
         >
           <CardLayer
             key={dragItem?.fieldName}
             label={dragItem?.label}
             show={false}
-          >
-            {onDomRender(dragItem?.card?.children, dragItem?.depth + 1, false)}
-          </CardLayer>
+          ></CardLayer>
+          {onDomRender(dragItem?.card?.children, dragItem?.depth + 1, false)}
         </div>
       </div>
 
-      <div style={layerStyles}>
+      <div className={classnames(styles.mask, styles.dragLayer)}>
         <div
-          className={classnames({
+          className={classnames(styles.dragEle, {
             [styles.container]: dragItem?.depth === 1,
             [styles.group]: dragItem?.depth !== 1,
           })}

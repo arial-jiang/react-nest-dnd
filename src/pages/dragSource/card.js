@@ -37,8 +37,8 @@ export default ({ fieldName, label, depth, moveCard, findCard, children }) => {
     accept: ItemTypes.CARD,
     // canDrop: () => false,
     hover({ fieldName: draggedFieldName, depth: draggedDepth }, monitor) {
-      // console.error(1111, depth, draggedDepth, fieldName, draggedFieldName)
       const { y: offsetY } = monitor.getDifferenceFromInitialOffset();
+      // console.error(1111, depth, draggedDepth, fieldName, draggedFieldName, offsetY)
       if (
         draggedFieldName !== fieldName &&
         draggedFieldName !== lastDraggedFieldName

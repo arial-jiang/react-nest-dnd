@@ -5,7 +5,7 @@ import classnames from 'classnames';
 
 import Card from './card';
 import { ItemTypes, ITEMS } from './constants';
-import { onGetIndex, onCalcPos, onUpdate, onIsDrop } from './util';
+import { onGetIndex, onCalcPos, onUpdate } from './util';
 
 import styles from './index.less';
 

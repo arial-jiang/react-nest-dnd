@@ -8,6 +8,7 @@ export default ({ fieldName, label, depth, moveCard, findCard, children }) => {
   const [text, setText] = useState('');
   const { index: originalIndex, card } = findCard(fieldName);
   let lastDraggedFieldName = '';
+  let isAdd = false;
   const [{ isDragging }, drag, preview] = useDrag({
     item: {
       type: ItemTypes.CARD,
@@ -36,22 +37,30 @@ export default ({ fieldName, label, depth, moveCard, findCard, children }) => {
   const [, drop] = useDrop({
     accept: ItemTypes.CARD,
     // canDrop: () => false,
-    hover({ fieldName: draggedFieldName, depth: draggedDepth }, monitor) {
+    drop({ fieldName: draggedFieldName, depth: draggedDepth }, monitor) {
       const { y: offsetY } = monitor.getDifferenceFromInitialOffset();
       // console.error(1111, depth, draggedDepth, fieldName, draggedFieldName, offsetY)
-      if (
-        draggedFieldName !== fieldName &&
-        draggedFieldName !== lastDraggedFieldName
-      ) {
+    },
+    hover({ fieldName: draggedFieldName, depth: draggedDepth }, monitor) {
+      const { y: offsetY } = monitor.getDifferenceFromInitialOffset();
+      if (!fieldName || !draggedFieldName) {
+        return;
+      }
+      if (draggedFieldName !== fieldName) {
+        isAdd = false;
         lastDraggedFieldName = draggedFieldName;
-        const { index: overIndex } = findCard(fieldName);
-        moveCard(draggedFieldName, overIndex, {
-          fieldName,
-          depth,
-          draggedDepth,
-          draggedFieldName,
-          offsetY,
-        });
+        if (Math.abs(offsetY) < 20) {
+          isAdd = true;
+          console.error(2222, fieldName, draggedFieldName, offsetY);
+          const { index: overIndex } = findCard(fieldName);
+          moveCard(draggedFieldName, overIndex, {
+            fieldName,
+            depth,
+            draggedDepth,
+            draggedFieldName,
+            offsetY,
+          });
+        }
       }
     },
   });

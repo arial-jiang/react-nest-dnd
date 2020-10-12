@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { useDrop } from 'react-dnd';
 
 import classnames from 'classnames';
 
 import Card from './card';
-import { ItemTypes, ITEMS } from './constants';
+import { ITEMS } from './constants';
 import { onGetIndex, onCalcPos, onUpdate } from './util';
 
 import styles from './index.less';
@@ -34,38 +33,32 @@ export default () => {
     setCards(result);
   };
 
-  const [, drop] = useDrop({ accept: ItemTypes.CARD });
-
   // 列表渲染
   const onDomRender = (data, depth) => {
     if (depth > 3) {
       return;
     }
-    return (
-      <div ref={drop}>
-        {data?.map(item => {
-          return (
-            <div
-              className={classnames({
-                [styles.container]: depth === 1,
-                [styles.group]: depth !== 1,
-              })}
-              key={item?.fieldName}
-            >
-              <Card
-                key={item?.fieldName}
-                fieldName={item?.fieldName}
-                label={item?.label}
-                depth={depth}
-                moveCard={moveCard}
-                findCard={findCard}
-              ></Card>
-              {onDomRender(item?.children, depth + 1)}
-            </div>
-          );
-        })}
-      </div>
-    );
+    return data?.map(item => {
+      return (
+        <div
+          className={classnames({
+            [styles.container]: depth === 1,
+            [styles.group]: depth !== 1,
+          })}
+          key={item?.fieldName}
+        >
+          <Card
+            key={item?.fieldName}
+            fieldName={item?.fieldName}
+            label={item?.label}
+            depth={depth}
+            moveCard={moveCard}
+            findCard={findCard}
+          ></Card>
+          {onDomRender(item?.children, depth + 1)}
+        </div>
+      );
+    });
   };
 
   return <>{onDomRender(cards, 1)}</>;

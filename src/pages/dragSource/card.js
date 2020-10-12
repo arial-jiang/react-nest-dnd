@@ -49,18 +49,18 @@ export default ({ fieldName, label, depth, moveCard, findCard, children }) => {
       if (draggedFieldName !== fieldName) {
         isAdd = false;
         lastDraggedFieldName = draggedFieldName;
-        if (Math.abs(offsetY) < 20) {
-          isAdd = true;
-          console.error(2222, fieldName, draggedFieldName, offsetY);
-          const { index: overIndex } = findCard(fieldName);
-          moveCard(draggedFieldName, overIndex, {
-            fieldName,
-            depth,
-            draggedDepth,
-            draggedFieldName,
-            offsetY,
-          });
-        }
+        // if (Math.abs(offsetY) < 20) {
+        isAdd = true;
+        // console.error(2222, fieldName, draggedFieldName, offsetY);
+        const { index: overIndex } = findCard(fieldName);
+        moveCard(draggedFieldName, overIndex, {
+          fieldName,
+          depth,
+          draggedDepth,
+          draggedFieldName,
+          offsetY,
+        });
+        // }
       }
     },
   });

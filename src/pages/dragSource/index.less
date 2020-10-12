@@ -27,10 +27,15 @@
   background-color: white;
 }
 
+.maskFrame {
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
+}
+
 .mask {
   position: fixed;
   pointer-events: none;
-  top: -1px;
+  top: 0px;
   left: 8px;
   width: 400px;
   height: 100%;
@@ -42,6 +47,10 @@
 
 .dragLayer {
   z-index: 100;
+}
+
+.offsetToBottom {
+  top: -1px;
 }
 
 .dragEle {

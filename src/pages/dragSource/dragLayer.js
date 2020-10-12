@@ -29,37 +29,39 @@ export default () => {
     if (depth > 3) {
       return;
     }
-    return (
-      <div>
-        {data?.map(item => {
-          return (
-            <div
-              className={classnames({
-                [styles.container]: depth === 1,
-                [styles.group]: depth !== 1,
-              })}
-              key={item?.fieldName}
-            >
-              <CardLayer
-                key={item?.fieldName}
-                label={item?.label}
-                show={show}
-                depth={depth}
-              ></CardLayer>
-              {onDomRender(item?.children, depth + 1, show)}
-            </div>
-          );
-        })}
-      </div>
-    );
+    return data?.map(item => {
+      return (
+        <div
+          className={classnames({
+            [styles.container]: depth === 1,
+            [styles.group]: depth !== 1,
+          })}
+          key={item?.fieldName}
+        >
+          <CardLayer
+            key={item?.fieldName}
+            label={item?.label}
+            show={show}
+            depth={depth}
+          ></CardLayer>
+          {onDomRender(item?.children, depth + 1, show)}
+        </div>
+      );
+    });
   };
 
   return (
     <div>
       {/* 拖拽后一个假的结构，用来覆盖未拖动的项 */}
-      <div className={classnames(styles.mask, styles.maskLayer)}>
+      <div
+        className={classnames(styles.mask, styles.maskLayer, {
+          [styles.offsetToBottom]: differenceOffset?.y > 0,
+        })}
+      >
         <div
-          className={styles.maskContainer}
+          className={classnames(styles.maskContainer, {
+            [styles.maskFrame]: dragItem?.depth !== 1,
+          })}
           style={getFixedStyles(initialOffset, currentOffset, differenceOffset)}
         >
           <CardLayer
@@ -71,7 +73,11 @@ export default () => {
         </div>
       </div>
 
-      <div className={classnames(styles.mask, styles.dragLayer)}>
+      <div
+        className={classnames(styles.mask, styles.dragLayer, {
+          [styles.offsetToBottom]: differenceOffset?.y > 0,
+        })}
+      >
         <div
           className={classnames(styles.dragEle, {
             [styles.container]: dragItem?.depth === 1,

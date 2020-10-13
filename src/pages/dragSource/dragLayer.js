@@ -4,6 +4,7 @@ import classnames from 'classnames';
 
 import CardLayer from './cardLayer';
 import { getFixedStyles, getItemStyles } from './layerUtil';
+import { DATA_EMPTY } from './constants';
 
 import styles from './index.less';
 
@@ -42,9 +43,19 @@ export default () => {
             key={item?.fieldName}
             label={item?.label}
             show={show}
+            noBorder={item?.children?.length === 0 && depth !== 3}
             depth={depth}
-          ></CardLayer>
-          {onDomRender(item?.children, depth + 1, show)}
+          />
+          {item?.children?.length > 0 &&
+            onDomRender(item?.children, depth + 1, show)}
+          {item?.children?.length === 0 && depth !== 3 && (
+            <CardLayer
+              key={`${depth}-${item?.fieldName}`}
+              label={DATA_EMPTY}
+              show={show}
+              depth={depth}
+            />
+          )}
         </div>
       );
     });
@@ -53,7 +64,7 @@ export default () => {
   return (
     <div>
       {/* 拖拽后一个假的结构，用来覆盖未拖动的项 */}
-      {/* <div
+      <div
         className={classnames(styles.mask, styles.maskLayer, {
           [styles.offsetToBottom]: differenceOffset?.y > 0,
           // [styles.showLayer]: Math.abs(differenceOffset?.y) > 30,
@@ -74,10 +85,18 @@ export default () => {
             key={dragItem?.fieldName}
             label={dragItem?.label}
             show={false}
-          ></CardLayer>
-          {onDomRender(dragItem?.card?.children, dragItem?.depth + 1, false)}
+          />
+          {dragItem?.card?.children?.length > 0 &&
+            onDomRender(dragItem?.card?.children, dragItem?.depth + 1, false)}
+          {dragItem?.card?.children?.length === 0 && dragItem?.depth !== 3 && (
+            <CardLayer
+              key={`${dragItem?.depth}-${dragItem?.fieldName}`}
+              label={DATA_EMPTY}
+              show={false}
+            />
+          )}
         </div>
-      </div> */}
+      </div>
 
       <div className={classnames(styles.mask, styles.dragLayer, {})}>
         <div
@@ -91,9 +110,21 @@ export default () => {
             key={dragItem?.fieldName}
             label={dragItem?.label}
             show={true}
+            noBorder={
+              dragItem?.card?.children?.length === 0 && dragItem?.depth !== 3
+            }
             depth={dragItem?.depth}
-          ></CardLayer>
-          {onDomRender(dragItem?.card?.children, dragItem?.depth + 1, true)}
+          />
+          {dragItem?.card?.children?.length > 0 &&
+            onDomRender(dragItem?.card?.children, dragItem?.depth + 1, true)}
+          {dragItem?.card?.children?.length === 0 && dragItem?.depth !== 3 && (
+            <CardLayer
+              key={`${dragItem?.depth}-${dragItem?.fieldName}`}
+              label={DATA_EMPTY}
+              show={true}
+              depth={dragItem?.depth}
+            />
+          )}
         </div>
       </div>
     </div>

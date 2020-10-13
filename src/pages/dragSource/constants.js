@@ -2,6 +2,8 @@ export const ItemTypes = {
   CARD: 'card',
 };
 
+export const DATA_EMPTY = 'empty';
+
 export const ITEMS = [
   {
     id: 1,

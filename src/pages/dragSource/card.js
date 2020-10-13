@@ -1,12 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
+import classnames from 'classnames';
 import { getEmptyImage } from 'react-dnd-html5-backend';
-import { ItemTypes } from './constants';
+import { ItemTypes, DATA_EMPTY } from './constants';
 import styles from './index.less';
 
-export default ({ fieldName, label, depth, moveCard, findCard, children }) => {
+export default ({
+  fieldName,
+  label,
+  depth,
+  moveCard,
+  findCard,
+  noBorder,
+  lastFieldName,
+  children,
+}) => {
   const [text, setText] = useState('');
   const { index: originalIndex, card } = findCard(fieldName);
+  // console.error(111, originalIndex, card, fieldName, lastFieldName, depth)
   let lastDraggedFieldName = '';
   let isAdd = false;
   const [{ isDragging }, drag, preview] = useDrag({
@@ -62,6 +73,7 @@ export default ({ fieldName, label, depth, moveCard, findCard, children }) => {
             draggedDepth,
             draggedFieldName,
             offsetY,
+            lastFieldName,
           });
         }
       }
@@ -74,7 +86,10 @@ export default ({ fieldName, label, depth, moveCard, findCard, children }) => {
   return (
     <div
       ref={node => drag(drop(node))}
-      className={styles.element}
+      className={classnames(styles.element, {
+        [styles.empty]: fieldName === DATA_EMPTY,
+        [styles.noBorder]: noBorder,
+      })}
       style={{ opacity, paddingLeft }}
       onClick={() => setText(1234)}
     >

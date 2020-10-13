@@ -70,10 +70,10 @@ const onToBottom = (atIndex, index, cards) => {
 };
 
 // 根据拖拽index、放开的索引atIndex计算最终位置
-export const onCalcPos = (atIndex, index, dropItem, cards, card) => {
+export const onCalcPos = (atIndex, index, dropItem, cards, card, isAdd) => {
   const { offsetY } = dropItem;
   // const isAdd = Math.abs(offsetY) > 20 && Math.abs(offsetY) < 55;
-  const isAdd = false;
+  // const isAdd = false;
   const hasChildren = card?.children?.length > 0;
   const IsHasChildrenAndToBottom = hasChildren && offsetY > 0; // 多层 且 向下移动，情况：一层、二层
   if (IsHasChildrenAndToBottom) {

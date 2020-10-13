@@ -19,7 +19,6 @@ export default ({
   const { index: originalIndex, card } = findCard(fieldName);
   // console.error(111, originalIndex, card, fieldName, lastFieldName, depth)
   let lastDraggedFieldName = '';
-  let isAdd = false;
   const [{ isDragging }, drag, preview] = useDrag({
     item: {
       type: ItemTypes.CARD,
@@ -57,14 +56,15 @@ export default ({
       if (!fieldName || !draggedFieldName) {
         return;
       }
-      if (draggedFieldName !== fieldName) {
-        isAdd = false;
+      if (
+        draggedFieldName !== fieldName &&
+        draggedFieldName !== lastDraggedFieldName
+      ) {
         lastDraggedFieldName = draggedFieldName;
         if (
           (Math.abs(offsetY) > 20 && depth !== 1) ||
           (Math.abs(offsetY) > 26 && depth === 1)
         ) {
-          isAdd = true;
           // console.error(2222, fieldName, draggedFieldName, offsetY);
           const { index: overIndex } = findCard(fieldName);
           moveCard(draggedFieldName, overIndex, {

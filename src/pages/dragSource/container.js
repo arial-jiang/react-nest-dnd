@@ -35,6 +35,9 @@ export default () => {
       placeIndex = dropIndex;
       isAdd = true;
     }
+    if (placeIndex === index) {
+      return;
+    }
     console.error(111, droppedFieldName, placeIndex, index);
     // console.error(111, fieldName, card, index, atIndex, key, dropItem);
     const key = onCalcPos(placeIndex, index, dropItem, cards, card, isAdd);

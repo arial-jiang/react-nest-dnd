@@ -43,11 +43,19 @@ export default () => {
             key={item?.fieldName}
             label={item?.label}
             show={show}
-            noBorder={item?.noBorder}
+            noBorder={item?.children?.length === 0 && depth !== 3}
             depth={depth}
           />
           {item?.children?.length > 0 &&
             onDomRender(item?.children, depth + 1, show)}
+          {item?.children?.length === 0 && depth !== 3 && (
+            <CardLayer
+              key={`${depth}-${item?.fieldName}`}
+              label={DATA_EMPTY}
+              show={show}
+              depth={depth}
+            />
+          )}
         </div>
       );
     });
@@ -80,6 +88,13 @@ export default () => {
           />
           {dragItem?.card?.children?.length > 0 &&
             onDomRender(dragItem?.card?.children, dragItem?.depth + 1, false)}
+          {dragItem?.card?.children?.length === 0 && dragItem?.depth !== 3 && (
+            <CardLayer
+              key={`${dragItem?.depth}-${dragItem?.fieldName}`}
+              label={DATA_EMPTY}
+              show={false}
+            />
+          )}
         </div>
       </div>
 
@@ -95,11 +110,21 @@ export default () => {
             key={dragItem?.fieldName}
             label={dragItem?.label}
             show={true}
-            noBorder={dragItem?.card?.noBorder}
+            noBorder={
+              dragItem?.card?.children?.length === 0 && dragItem?.depth !== 3
+            }
             depth={dragItem?.depth}
           />
           {dragItem?.card?.children?.length > 0 &&
             onDomRender(dragItem?.card?.children, dragItem?.depth + 1, true)}
+          {dragItem?.card?.children?.length === 0 && dragItem?.depth !== 3 && (
+            <CardLayer
+              key={`${dragItem?.depth}-${dragItem?.fieldName}`}
+              label={DATA_EMPTY}
+              show={true}
+              depth={dragItem?.depth}
+            />
+          )}
         </div>
       </div>
     </div>

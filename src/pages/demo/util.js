@@ -1,24 +1,4 @@
 import update from 'immutability-helper';
-import { DATA_EMPTY } from './constants';
-
-// 初始化数据
-export const onInitialData = (data, depth) => {
-  data?.forEach((item, index, arr) => {
-    if (item?.children?.length === 0) {
-      if (depth !== 3) {
-        item.noBorder = true;
-      }
-      item.children.push({
-        label: `${item.fieldName}-${DATA_EMPTY}`,
-        fieldName: `${item.fieldName}-${DATA_EMPTY}`,
-        children: [],
-      });
-    } else {
-      onInitialData(item.children, depth + 1);
-    }
-  });
-  return data;
-};
 
 // 找到拖动的索引
 export const onGetIndex = (
@@ -202,10 +182,8 @@ export const onCalcPos = (atIndex, index, dropItem, cards, card, isAdd) => {
   return { atGroup, atSalary, atField, group, salary, field };
 };
 
-export const onUpdate = (cards, key, card, dropItem) => {
+export const onUpdate = (cards, key, card) => {
   const { atGroup, atSalary, atField, group, salary, field } = key;
-  const { fieldName: droppedFieldName } = dropItem;
-  const isEmpty = droppedFieldName?.includes(DATA_EMPTY);
   // console.error(atGroup, atSalary, atField, group, salary, field);
   const add = update(
     cards,

@@ -11,7 +11,7 @@ export default ({ label, show, depth, noBorder, children }) => {
   return (
     <div
       className={classnames(styles.element, {
-        [styles.empty]: label.includes(DATA_EMPTY),
+        [styles.empty]: label === DATA_EMPTY,
         [styles.noBorder]: noBorder,
       })}
       style={{ color, borderBottom, paddingLeft }}

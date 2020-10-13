@@ -9,5 +9,6 @@ export default defineConfig({
     { path: '/drag', component: '@/pages/drag' },
     { path: '/dragSource', component: '@/pages/dragSource' },
     { path: '/payroll', component: '@/pages/payroll' },
+    { path: '/demo', component: '@/pages/demo' },
   ],
 });

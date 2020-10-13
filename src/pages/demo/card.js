@@ -12,7 +12,7 @@ export default ({
   moveCard,
   findCard,
   noBorder,
-  // lastFieldName,
+  lastFieldName,
   children,
 }) => {
   const [text, setText] = useState('');
@@ -73,7 +73,7 @@ export default ({
             draggedDepth,
             draggedFieldName,
             offsetY,
-            // lastFieldName,
+            lastFieldName,
           });
         }
       }
@@ -87,7 +87,7 @@ export default ({
     <div
       ref={node => drag(drop(node))}
       className={classnames(styles.element, {
-        [styles.empty]: fieldName.includes(DATA_EMPTY),
+        [styles.empty]: fieldName === DATA_EMPTY,
         [styles.noBorder]: noBorder,
       })}
       style={{ opacity, paddingLeft }}

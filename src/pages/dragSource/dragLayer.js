@@ -53,7 +53,7 @@ export default () => {
   return (
     <div>
       {/* 拖拽后一个假的结构，用来覆盖未拖动的项 */}
-      <div
+      {/* <div
         className={classnames(styles.mask, styles.maskLayer, {
           [styles.offsetToBottom]: differenceOffset?.y > 0,
           // [styles.showLayer]: Math.abs(differenceOffset?.y) > 30,
@@ -77,7 +77,7 @@ export default () => {
           ></CardLayer>
           {onDomRender(dragItem?.card?.children, dragItem?.depth + 1, false)}
         </div>
-      </div>
+      </div> */}
 
       <div className={classnames(styles.mask, styles.dragLayer, {})}>
         <div

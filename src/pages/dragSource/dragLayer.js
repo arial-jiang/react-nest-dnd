@@ -56,13 +56,19 @@ export default () => {
       <div
         className={classnames(styles.mask, styles.maskLayer, {
           [styles.offsetToBottom]: differenceOffset?.y > 0,
+          // [styles.showLayer]: Math.abs(differenceOffset?.y) > 30,
         })}
       >
         <div
           className={classnames(styles.maskContainer, {
             [styles.maskFrame]: dragItem?.depth !== 1,
           })}
-          style={getFixedStyles(initialOffset, currentOffset, differenceOffset)}
+          style={getFixedStyles(
+            initialOffset,
+            currentOffset,
+            differenceOffset,
+            dragItem?.depth,
+          )}
         >
           <CardLayer
             key={dragItem?.fieldName}
@@ -73,11 +79,7 @@ export default () => {
         </div>
       </div>
 
-      <div
-        className={classnames(styles.mask, styles.dragLayer, {
-          [styles.offsetToBottom]: differenceOffset?.y > 0,
-        })}
-      >
+      <div className={classnames(styles.mask, styles.dragLayer, {})}>
         <div
           className={classnames(styles.dragEle, {
             [styles.container]: dragItem?.depth === 1,

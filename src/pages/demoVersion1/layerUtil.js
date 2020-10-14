@@ -29,8 +29,8 @@ export const getFixedStyles = (
   const calcField = offsetY > 0 ? offsetY - fixedOffset : offsetY + fixedOffset;
   const calcOffset = depth === 1 ? calcGroup : calcField;
   if (Math.abs(offsetY) > fixedOffset) {
-    // resultY = currentY;
-    resultY = currentY + calcOffset;
+    resultY = currentY;
+    // resultY = currentY + calcOffset;
   }
   // console.error(1111, offsetY, calcOffset, resultY, currentY)
   const transform = `translateY(${resultY}px)`;

@@ -6,15 +6,14 @@ import styles from './index.less';
 
 export default ({ label, show, depth, noBorder, children }) => {
   const color = show ? 'black' : 'white';
-  const borderBottom = show ? (noBorder ? 'none' : '1px solid gray') : 'none';
   const paddingLeft = depth ? `${depth}rem` : '1rem';
   return (
     <div
       className={classnames(styles.element, {
         [styles.empty]: label === DATA_EMPTY,
-        [styles.noBorder]: noBorder,
+        [styles.noBorder]: !show || (show && noBorder),
       })}
-      style={{ color, borderBottom, paddingLeft }}
+      style={{ color, paddingLeft }}
     >
       {label}
       {children}

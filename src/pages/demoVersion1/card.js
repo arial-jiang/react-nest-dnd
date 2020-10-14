@@ -53,17 +53,19 @@ export default ({
     },
     hover({ fieldName: draggedFieldName, depth: draggedDepth }, monitor) {
       const { y: offsetY } = monitor.getDifferenceFromInitialOffset();
+      // console.error('hover: ', fieldName, draggedFieldName, offsetY, depth)
       if (!fieldName || !draggedFieldName) {
         return;
       }
       if (
         draggedFieldName !== fieldName &&
-        draggedFieldName !== lastDraggedFieldName
+        draggedFieldName !== lastDraggedFieldName &&
+        !fieldName?.includes(draggedFieldName)
       ) {
         lastDraggedFieldName = draggedFieldName;
         if (
-          (Math.abs(offsetY) > 20 && depth !== 1) ||
-          (Math.abs(offsetY) > 26 && depth === 1)
+          (Math.abs(offsetY) > 10 && depth !== 1) ||
+          (Math.abs(offsetY) > 16 && depth === 1)
         ) {
           // console.error(2222, fieldName, draggedFieldName, offsetY);
           const { index: overIndex } = findCard(fieldName);
@@ -87,7 +89,7 @@ export default ({
     <div
       ref={node => drag(drop(node))}
       className={classnames(styles.element, {
-        [styles.empty]: fieldName === DATA_EMPTY,
+        [styles.empty]: fieldName?.includes(DATA_EMPTY),
         [styles.noBorder]: noBorder,
       })}
       style={{ opacity, paddingLeft }}

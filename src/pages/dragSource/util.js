@@ -206,6 +206,7 @@ export const onUpdate = (cards, key, card, dropItem) => {
   const { atGroup, atSalary, atField, group, salary, field } = key;
   const { fieldName: droppedFieldName } = dropItem;
   const isEmpty = droppedFieldName?.includes(DATA_EMPTY);
+  const delOrAdd = isEmpty ? 1 : 0;
   // console.error(atGroup, atSalary, atField, group, salary, field);
   const add = update(
     cards,
@@ -217,12 +218,12 @@ export const onUpdate = (cards, key, card, dropItem) => {
                 ? {
                     [atSalary]: {
                       children: {
-                        $splice: [[atField, 0, card]],
+                        $splice: [[atField, delOrAdd, card]],
                       },
                     },
                   }
                 : {
-                    $splice: [[atSalary, 0, card]],
+                    $splice: [[atSalary, delOrAdd, card]],
                   },
           },
         }

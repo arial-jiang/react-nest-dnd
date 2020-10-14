@@ -33,7 +33,7 @@ export default () => {
     setCards(result);
   };
 
-  // console.error(1111, cards)
+  console.error(1111, cards);
 
   // 列表渲染
   const onDomRender = (data, depth) => {

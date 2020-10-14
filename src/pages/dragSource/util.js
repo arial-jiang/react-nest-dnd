@@ -207,7 +207,25 @@ export const onUpdate = (cards, key, card, dropItem) => {
   const { fieldName: droppedFieldName } = dropItem;
   const isEmpty = droppedFieldName?.includes(DATA_EMPTY);
   const delOrAdd = isEmpty ? 1 : 0;
-  // console.error(atGroup, atSalary, atField, group, salary, field);
+  let addCard = card;
+  if (isEmpty) {
+    if (typeof atSalary !== 'undefined' && typeof atField === 'undefined') {
+      addCard = update(card, { noBorder: { $set: false } });
+    } else {
+      addCard = update(card, { children: { $set: [] } });
+    }
+  }
+  console.error(
+    atGroup,
+    atSalary,
+    atField,
+    group,
+    salary,
+    field,
+    isEmpty,
+    delOrAdd,
+    card,
+  );
   const add = update(
     cards,
     typeof atSalary !== 'undefined'
@@ -218,12 +236,12 @@ export const onUpdate = (cards, key, card, dropItem) => {
                 ? {
                     [atSalary]: {
                       children: {
-                        $splice: [[atField, delOrAdd, card]],
+                        $splice: [[atField, delOrAdd, addCard]],
                       },
                     },
                   }
                 : {
-                    $splice: [[atSalary, delOrAdd, card]],
+                    $splice: [[atSalary, delOrAdd, addCard]],
                   },
           },
         }

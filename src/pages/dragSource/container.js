@@ -27,13 +27,14 @@ export default () => {
    */
   const moveCard = (fieldName, atIndex, dropItem) => {
     const { card, index } = findCard(fieldName);
-    // console.error(111, fieldName, card, index, atIndex, key, dropItem);
+    console.error(111, fieldName, card, index, atIndex, key, dropItem);
     const key = onCalcPos(atIndex, index, dropItem, cards, card);
     const result = onUpdate(cards, key, card, dropItem);
-    setCards(result);
+    console.error(2222, result);
+    // setCards(result);
   };
 
-  console.error(1111, cards);
+  // console.error(1111, cards);
 
   // 列表渲染
   const onDomRender = (data, depth) => {

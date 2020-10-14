@@ -10,5 +10,7 @@ export default defineConfig({
     { path: '/dragSource', component: '@/pages/dragSource' },
     { path: '/payroll', component: '@/pages/payroll' },
     { path: '/demo', component: '@/pages/demo' },
+    { path: '/demoVersion1', component: '@/pages/demoVersion1' },
+    { path: '/demoVersion2', component: '@/pages/demoVersion2' },
   ],
 });

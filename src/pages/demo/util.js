@@ -184,7 +184,7 @@ export const onCalcPos = (atIndex, index, dropItem, cards, card, isAdd) => {
 
 export const onUpdate = (cards, key, card) => {
   const { atGroup, atSalary, atField, group, salary, field } = key;
-  console.error(atGroup, atSalary, atField, group, salary, field);
+  // console.error(atGroup, atSalary, atField, group, salary, field);
   const add = update(
     cards,
     typeof atSalary !== 'undefined'

@@ -73,7 +73,7 @@ export default () => {
             [styles.container]: depth === 1,
             [styles.group]: depth !== 1,
           })}
-          key={item?.fieldName}
+          key={`${item?.fieldName}-r`}
         >
           <Card
             key={`${item?.fieldName}-c`}

@@ -37,7 +37,7 @@ export default ({
   });
 
   useEffect(() => {
-    preview(getEmptyImage(), { captureDraggingState: true });
+    // preview(getEmptyImage(), { captureDraggingState: true });
   }, []);
 
   const [, drop] = useDrop({
@@ -79,6 +79,7 @@ export default ({
 
   return (
     <div
+      key={fieldName}
       ref={node => drag(drop(node))}
       className={classnames(styles.element, {
         [styles.empty]: fieldName?.includes(DATA_EMPTY),

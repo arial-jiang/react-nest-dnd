@@ -45,6 +45,8 @@ export default () => {
             show={show}
             noBorder={item?.children?.length === 0 && depth !== 3}
             depth={depth}
+            isLast={item?.isLast}
+            hasChildren={item?.hasChildren}
           />
           {item?.children?.length > 0 &&
             onDomRender(item?.children, depth + 1, show)}
@@ -54,6 +56,8 @@ export default () => {
               label={DATA_EMPTY}
               show={show}
               depth={depth}
+              isLast={item?.isLast}
+              hasChildren={item?.hasChildren}
             />
           )}
         </div>
@@ -67,24 +71,27 @@ export default () => {
       <div
         className={classnames(styles.mask, styles.maskLayer, {
           [styles.offsetToBottom]: differenceOffset?.y > 0,
-          // [styles.showLayer]: Math.abs(differenceOffset?.y) > 30,
         })}
       >
         <div
           className={classnames(styles.maskContainer, {
-            [styles.maskFrame]: dragItem?.depth !== 1,
+            [styles.maskFrame]: dragItem?.depth !== 1 && !dragItem?.isLast,
+            [styles.dragEle]: dragItem?.depth !== 1 && dragItem?.isLast,
           })}
           style={getFixedStyles(
             initialOffset,
             currentOffset,
             differenceOffset,
             dragItem?.depth,
+            dragItem?.isLast,
           )}
         >
           <CardLayer
             key={dragItem?.fieldName}
             label={dragItem?.label}
             show={false}
+            isLast={dragItem?.isLast}
+            hasChildren={dragItem?.hasChildren}
           />
           {dragItem?.card?.children?.length > 0 &&
             onDomRender(dragItem?.card?.children, dragItem?.depth + 1, false)}
@@ -93,6 +100,8 @@ export default () => {
               key={`${dragItem?.depth}-${dragItem?.fieldName}`}
               label={DATA_EMPTY}
               show={false}
+              isLast={dragItem?.isLast}
+              hasChildren={dragItem?.hasChildren}
             />
           )}
         </div>
@@ -114,6 +123,8 @@ export default () => {
               dragItem?.card?.children?.length === 0 && dragItem?.depth !== 3
             }
             depth={dragItem?.depth}
+            isLast={dragItem?.isLast}
+            hasChildren={dragItem?.hasChildren}
           />
           {dragItem?.card?.children?.length > 0 &&
             onDomRender(dragItem?.card?.children, dragItem?.depth + 1, true)}
@@ -123,6 +134,8 @@ export default () => {
               label={DATA_EMPTY}
               show={true}
               depth={dragItem?.depth}
+              isLast={dragItem?.isLast}
+              hasChildren={dragItem?.hasChildren}
             />
           )}
         </div>

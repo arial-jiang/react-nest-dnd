@@ -32,6 +32,11 @@ export const ITEMS = [
         fieldName: 'data-b2',
         children: [],
       },
+      {
+        label: '第2层6',
+        fieldName: 'data-b6',
+        children: [],
+      },
     ],
   },
   {

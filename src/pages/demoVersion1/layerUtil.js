@@ -3,16 +3,18 @@ export const getFixedStyles = (
   currentOffset,
   differenceOffset,
   depth,
+  isLast,
 ) => {
   if (!initialOffset || !currentOffset) {
     return {
       display: 'none',
     };
   }
+  let border = 'none';
   // 拖拽时hover固定遮罩的偏移值
-  const groupOffset = 26;
+  const groupOffset = 16;
   // const groupOffset = offsetY > 0 ? 16 : 26;
-  const fixedOffset = depth === 1 ? groupOffset : 20;
+  const fixedOffset = depth === 1 ? groupOffset : 10;
   // 固定遮罩的最大偏移量
   const maxOffset = 39;
   const { y } = initialOffset;
@@ -29,14 +31,20 @@ export const getFixedStyles = (
   const calcField = offsetY > 0 ? offsetY - fixedOffset : offsetY + fixedOffset;
   const calcOffset = depth === 1 ? calcGroup : calcField;
   if (Math.abs(offsetY) > fixedOffset) {
-    resultY = currentY;
+    resultY = currentY - 1;
     // resultY = currentY + calcOffset;
+    border = 'none';
+  } else {
+    if (isLast) {
+      border = '1px solid gray';
+    }
   }
   // console.error(1111, offsetY, calcOffset, resultY, currentY)
   const transform = `translateY(${resultY}px)`;
   return {
     transform,
     WebkitTransform: transform,
+    border,
   };
 };
 

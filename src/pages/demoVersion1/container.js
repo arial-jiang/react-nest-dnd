@@ -28,14 +28,14 @@ export default () => {
   const moveCard = (fieldName, atIndex, dropItem) => {
     const { card, index } = findCard(fieldName);
     const { depth, lastFieldName, fieldName: droppedFieldName } = dropItem;
-    // console.error(
-    //   'before: ',
-    //   droppedFieldName,
-    //   lastFieldName,
-    //   placeIndex,
-    //   index,
-    //   depth,
-    // );
+    console.error(
+      'before: ',
+      droppedFieldName,
+      lastFieldName,
+      placeIndex,
+      index,
+      depth,
+    );
     let placeIndex = atIndex;
     let isAdd = false;
     if (droppedFieldName?.includes(DATA_EMPTY)) {
@@ -44,16 +44,17 @@ export default () => {
       isAdd = true;
     }
     if (placeIndex === index || index?.length === 0) {
+      // if (placeIndex === index || index?.length === 0 || droppedFieldName?.includes(lastFieldName)) {
       return;
     }
-    // console.error(
-    //   'after: ',
-    //   droppedFieldName,
-    //   lastFieldName,
-    //   placeIndex,
-    //   index,
-    //   depth,
-    // );
+    console.error(
+      'after: ',
+      droppedFieldName,
+      lastFieldName,
+      placeIndex,
+      index,
+      depth,
+    );
     // console.error(111, fieldName, card, index, atIndex, key, dropItem);
     const key = onCalcPos(placeIndex, index, dropItem, cards, card, isAdd);
     const result = onUpdate(cards, key, card, dropItem);
@@ -80,6 +81,12 @@ export default () => {
             label={item?.label}
             depth={depth}
             noBorder={item?.children?.length === 0 && depth !== 3}
+            isLast={
+              item?.children?.length === 0 &&
+              index === data?.length - 1 &&
+              depth !== 1
+            }
+            hasChildren={item?.children?.length > 0}
             moveCard={moveCard}
             findCard={findCard}
           />

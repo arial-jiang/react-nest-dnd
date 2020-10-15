@@ -13,11 +13,12 @@ export default ({
   findCard,
   noBorder,
   lastFieldName,
+  isLast,
+  hasChildren,
   children,
 }) => {
   const [text, setText] = useState('');
   const { index: originalIndex, card } = findCard(fieldName);
-  // console.error(111, originalIndex, card, fieldName, lastFieldName, depth)
   let lastDraggedFieldName = '';
   const [{ isDragging }, drag, preview] = useDrag({
     item: {
@@ -27,17 +28,12 @@ export default ({
       card,
       depth,
       originalIndex,
+      isLast,
+      hasChildren,
     },
     collect: monitor => ({
       isDragging: monitor.isDragging(),
     }),
-    // end: (dropResult, monitor) => {
-    //   const { fieldName: droppedFieldName, originalIndex: index } = monitor.getItem();
-    //   const didDrop = monitor.didDrop();
-    //   if (!didDrop) {
-    //     moveCard(droppedFieldName, index);
-    //   }
-    // },
   });
 
   useEffect(() => {
@@ -47,10 +43,6 @@ export default ({
   const [, drop] = useDrop({
     accept: ItemTypes.CARD,
     // canDrop: () => false,
-    drop({ fieldName: draggedFieldName, depth: draggedDepth }, monitor) {
-      const { y: offsetY } = monitor.getDifferenceFromInitialOffset();
-      // console.error(1111, depth, draggedDepth, fieldName, draggedFieldName, offsetY)
-    },
     hover({ fieldName: draggedFieldName, depth: draggedDepth }, monitor) {
       const { y: offsetY } = monitor.getDifferenceFromInitialOffset();
       // console.error('hover: ', fieldName, draggedFieldName, offsetY, depth)
@@ -63,21 +55,21 @@ export default ({
         !fieldName?.includes(draggedFieldName)
       ) {
         lastDraggedFieldName = draggedFieldName;
-        if (
-          (Math.abs(offsetY) > 10 && depth !== 1) ||
-          (Math.abs(offsetY) > 16 && depth === 1)
-        ) {
-          // console.error(2222, fieldName, draggedFieldName, offsetY);
-          const { index: overIndex } = findCard(fieldName);
-          moveCard(draggedFieldName, overIndex, {
-            fieldName,
-            depth,
-            draggedDepth,
-            draggedFieldName,
-            offsetY,
-            lastFieldName,
-          });
-        }
+        // if (
+        //   (Math.abs(offsetY) > 10 && depth !== 1) ||
+        //   (Math.abs(offsetY) > 16 && depth === 1)
+        // ) {
+        // console.error(2222, fieldName, draggedFieldName, offsetY);
+        const { index: overIndex } = findCard(fieldName);
+        moveCard(draggedFieldName, overIndex, {
+          fieldName,
+          depth,
+          draggedDepth,
+          draggedFieldName,
+          offsetY,
+          lastFieldName,
+        });
+        // }
       }
     },
   });
@@ -91,6 +83,7 @@ export default ({
       className={classnames(styles.element, {
         [styles.empty]: fieldName?.includes(DATA_EMPTY),
         [styles.noBorder]: noBorder,
+        [styles.eleBox]: hasChildren || depth === 3,
       })}
       style={{ opacity, paddingLeft }}
       onClick={() => setText(1234)}

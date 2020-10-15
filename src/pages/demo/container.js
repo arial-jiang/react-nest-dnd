@@ -55,9 +55,9 @@ export default () => {
     //   index,
     //   depth,
     // );
-    // console.error(111, fieldName, card, index, atIndex, key, dropItem);
     const key = onCalcPos(placeIndex, index, dropItem, cards, card, isAdd);
     const result = onUpdate(cards, key, card, dropItem);
+    // console.error(111, fieldName, droppedFieldName, card, index, key, atIndex, dropItem);
     setCards(result);
   };
 

@@ -10,7 +10,7 @@ export default () => {
     <div>
       <DndProvider backend={HTML5Backend}>
         <Container />
-        {/* <DragLayer /> */}
+        <DragLayer />
       </DndProvider>
     </div>
   );

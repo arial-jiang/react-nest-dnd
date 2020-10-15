@@ -37,7 +37,7 @@ export default ({
   });
 
   useEffect(() => {
-    // preview(getEmptyImage(), { captureDraggingState: true });
+    preview(getEmptyImage(), { captureDraggingState: true });
   }, []);
 
   const [, drop] = useDrop({
@@ -59,7 +59,7 @@ export default ({
         //   (Math.abs(offsetY) > 10 && depth !== 1) ||
         //   (Math.abs(offsetY) > 16 && depth === 1)
         // ) {
-        // console.error(2222, fieldName, draggedFieldName, offsetY);
+        console.error(2222, fieldName, draggedFieldName, offsetY);
         const { index: overIndex } = findCard(fieldName);
         moveCard(draggedFieldName, overIndex, {
           fieldName,

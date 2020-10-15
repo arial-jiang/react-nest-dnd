@@ -19,8 +19,11 @@ export default ({
     <div
       className={classnames(styles.element, {
         [styles.empty]: label === DATA_EMPTY,
-        [styles.noBorder]: !show || (show && noBorder),
-        [styles.eleBox]: hasChildren || depth === 3,
+        [styles.noBorder]:
+          !show ||
+          (show && noBorder) ||
+          (show && label !== DATA_EMPTY && depth === 3),
+        [styles.eleBox]: hasChildren,
       })}
       style={{ color, paddingLeft }}
     >

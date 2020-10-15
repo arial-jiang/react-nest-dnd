@@ -50,7 +50,7 @@ export default () => {
           />
           {item?.children?.length > 0 &&
             onDomRender(item?.children, depth + 1, show)}
-          {item?.children?.length === 0 && depth !== 3 && (
+          {item?.children?.length === 0 && (
             <CardLayer
               key={`${depth}-${item?.fieldName}`}
               label={DATA_EMPTY}
@@ -95,7 +95,7 @@ export default () => {
           />
           {dragItem?.card?.children?.length > 0 &&
             onDomRender(dragItem?.card?.children, dragItem?.depth + 1, false)}
-          {dragItem?.card?.children?.length === 0 && dragItem?.depth !== 3 && (
+          {dragItem?.card?.children?.length === 0 && (
             <CardLayer
               key={`${dragItem?.depth}-${dragItem?.fieldName}`}
               label={DATA_EMPTY}
@@ -128,7 +128,7 @@ export default () => {
           />
           {dragItem?.card?.children?.length > 0 &&
             onDomRender(dragItem?.card?.children, dragItem?.depth + 1, true)}
-          {dragItem?.card?.children?.length === 0 && dragItem?.depth !== 3 && (
+          {dragItem?.card?.children?.length === 0 && (
             <CardLayer
               key={`${dragItem?.depth}-${dragItem?.fieldName}`}
               label={DATA_EMPTY}

@@ -37,10 +37,10 @@ export default () => {
             [styles.container]: depth === 1,
             [styles.group]: depth !== 1,
           })}
-          key={item?.fieldName}
+          key={`${item?.fieldName}-${show}-layer-c`}
         >
           <CardLayer
-            key={item?.fieldName}
+            key={`${item?.fieldName}-${show}-layer-c`}
             label={item?.label}
             show={show}
             noBorder={item?.children?.length === 0 && depth !== 3}
@@ -52,7 +52,7 @@ export default () => {
             onDomRender(item?.children, depth + 1, show)}
           {item?.children?.length === 0 && (
             <CardLayer
-              key={`${depth}-${item?.fieldName}`}
+              key={`${item?.fieldName}-${show}-layer-${DATA_EMPTY}`}
               label={DATA_EMPTY}
               show={show}
               depth={depth}
@@ -87,7 +87,7 @@ export default () => {
           )}
         >
           <CardLayer
-            key={dragItem?.fieldName}
+            key={`${dragItem?.fieldName}-mask-c`}
             label={dragItem?.label}
             show={false}
             isLast={dragItem?.isLast}
@@ -97,7 +97,7 @@ export default () => {
             onDomRender(dragItem?.card?.children, dragItem?.depth + 1, false)}
           {dragItem?.card?.children?.length === 0 && (
             <CardLayer
-              key={`${dragItem?.depth}-${dragItem?.fieldName}`}
+              key={`${dragItem?.fieldName}-mask-${DATA_EMPTY}`}
               label={DATA_EMPTY}
               show={false}
               isLast={dragItem?.isLast}
@@ -116,7 +116,7 @@ export default () => {
           style={getItemStyles(currentOffset)}
         >
           <CardLayer
-            key={dragItem?.fieldName}
+            key={`${dragItem?.fieldName}-layer-c`}
             label={dragItem?.label}
             show={true}
             noBorder={
@@ -130,7 +130,7 @@ export default () => {
             onDomRender(dragItem?.card?.children, dragItem?.depth + 1, true)}
           {dragItem?.card?.children?.length === 0 && (
             <CardLayer
-              key={`${dragItem?.depth}-${dragItem?.fieldName}`}
+              key={`${dragItem?.fieldName}-layer-${DATA_EMPTY}`}
               label={DATA_EMPTY}
               show={true}
               depth={dragItem?.depth}

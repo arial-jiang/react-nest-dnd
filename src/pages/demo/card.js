@@ -85,7 +85,6 @@ export default ({
         [styles.noBorder]:
           noBorder || (!fieldName?.includes(DATA_EMPTY) && depth === 3),
         [styles.eleBox]: hasChildren,
-        // [styles.eleBox]: hasChildren || depth === 3,
       })}
       style={{ opacity, paddingLeft }}
       onClick={() => setText(1234)}

@@ -76,7 +76,7 @@ export default () => {
           key={item?.fieldName}
         >
           <Card
-            key={item?.fieldName}
+            key={`${item?.fieldName}-c`}
             fieldName={item?.fieldName}
             label={item?.label}
             depth={depth}
@@ -93,7 +93,7 @@ export default () => {
           {item?.children?.length > 0 && onDomRender(item?.children, depth + 1)}
           {item?.children?.length === 0 && (
             <Card
-              key={`${depth}-${item?.fieldName}`}
+              key={`${DATA_EMPTY}-${item?.fieldName}`}
               fieldName={`${item?.fieldName}-${DATA_EMPTY}`}
               label={`${item?.fieldName}-${DATA_EMPTY}`}
               depth={depth}

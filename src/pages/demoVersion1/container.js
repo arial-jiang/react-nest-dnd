@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import classnames from 'classnames';
 
 import Card from './card';
-import { ITEMS, DATA_EMPTY } from './constants';
+import { ITEMS } from './constants';
 import { onGetIndex, onCalcPos, onUpdate } from './util';
 
 import styles from './index.less';
@@ -27,36 +27,8 @@ export default () => {
    */
   const moveCard = (fieldName, atIndex, dropItem) => {
     const { card, index } = findCard(fieldName);
-    const { depth, lastFieldName, fieldName: droppedFieldName } = dropItem;
-    // console.error(
-    //   'before: ',
-    //   droppedFieldName,
-    //   lastFieldName,
-    //   placeIndex,
-    //   index,
-    //   depth,
-    // );
-    let placeIndex = atIndex;
-    let isAdd = false;
-    if (droppedFieldName?.includes(DATA_EMPTY)) {
-      const { index: dropIndex } = findCard(lastFieldName);
-      placeIndex = dropIndex;
-      isAdd = true;
-    }
-    if (placeIndex === index || index?.length === 0) {
-      // if (placeIndex === index || index?.length === 0 || droppedFieldName?.includes(lastFieldName)) {
-      return;
-    }
-    // console.error(
-    //   'after: ',
-    //   droppedFieldName,
-    //   lastFieldName,
-    //   placeIndex,
-    //   index,
-    //   depth,
-    // );
     // console.error(111, fieldName, card, index, atIndex, key, dropItem);
-    const key = onCalcPos(placeIndex, index, dropItem, cards, card, isAdd);
+    const key = onCalcPos(atIndex, index, dropItem, cards, card);
     const result = onUpdate(cards, key, card, dropItem);
     setCards(result);
   };
@@ -80,28 +52,10 @@ export default () => {
             fieldName={item?.fieldName}
             label={item?.label}
             depth={depth}
-            noBorder={item?.children?.length === 0 && depth !== 3}
-            isLast={
-              item?.children?.length === 0 &&
-              index === data?.length - 1 &&
-              depth !== 1
-            }
-            hasChildren={item?.children?.length > 0}
             moveCard={moveCard}
             findCard={findCard}
           />
           {item?.children?.length > 0 && onDomRender(item?.children, depth + 1)}
-          {item?.children?.length === 0 && (
-            <Card
-              key={`${depth}-${item?.fieldName}`}
-              fieldName={`${item?.fieldName}-${DATA_EMPTY}`}
-              label={`${item?.fieldName}-${DATA_EMPTY}`}
-              depth={depth}
-              lastFieldName={item?.fieldName}
-              moveCard={moveCard}
-              findCard={findCard}
-            />
-          )}
         </div>
       );
     });

@@ -12,5 +12,6 @@ export default defineConfig({
     { path: '/demo', component: '@/pages/demo' },
     { path: '/demoVersion1', component: '@/pages/demoVersion1' },
     { path: '/demoVersion2', component: '@/pages/demoVersion2' },
+    { path: '/demoVersion3', component: '@/pages/demoVersion3' },
   ],
 });

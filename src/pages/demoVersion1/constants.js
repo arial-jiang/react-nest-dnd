@@ -2,8 +2,6 @@ export const ItemTypes = {
   CARD: 'card',
 };
 
-export const DATA_EMPTY = 'empty';
-
 export const ITEMS = [
   {
     id: 1,
@@ -30,11 +28,6 @@ export const ITEMS = [
       {
         label: '第2层2',
         fieldName: 'data-b2',
-        children: [],
-      },
-      {
-        label: '第2层6',
-        fieldName: 'data-b6',
         children: [],
       },
     ],

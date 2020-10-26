@@ -6,12 +6,9 @@ export default defineConfig({
   },
   routes: [
     { path: '/', component: '@/pages/index' },
-    { path: '/drag', component: '@/pages/drag' },
-    { path: '/dragSource', component: '@/pages/dragSource' },
-    { path: '/payroll', component: '@/pages/payroll' },
+    { path: '/chessboard', component: '@/pages/chessboard' },
+    { path: '/nestCard', component: '@/pages/nestCard' },
     { path: '/demo', component: '@/pages/demo' },
-    { path: '/demoVersion1', component: '@/pages/demoVersion1' },
-    { path: '/demoVersion2', component: '@/pages/demoVersion2' },
-    { path: '/demoVersion3', component: '@/pages/demoVersion3' },
+    { path: '/dragNotInside', component: '@/pages/dragNotInside' },
   ],
 });

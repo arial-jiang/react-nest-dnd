@@ -10,5 +10,7 @@ export default defineConfig({
     { path: '/nestCard', component: '@/pages/nestCard' },
     { path: '/demo', component: '@/pages/demo' },
     { path: '/dragNotInside', component: '@/pages/dragNotInside' },
+    { path: '/sortable', component: '@/pages/sortable' },
+    { path: '/simpleSortable', component: '@/pages/simpleSortable' },
   ],
 });

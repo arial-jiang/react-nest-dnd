@@ -19,58 +19,41 @@ export default ({ fieldName, label, depth, moveCard, findCard, children }) => {
     collect: monitor => ({
       isDragging: monitor.isDragging(),
     }),
-    // end: (dropResult, monitor) => {
-    //   const { fieldName: droppedFieldName, originalIndex: index } = monitor.getItem();
-    //   const didDrop = monitor.didDrop();
-    //   if (!didDrop) {
-    //     moveCard(droppedFieldName, index);
-    //   }
-    // },
   });
 
   const [, drop] = useDrop({
     accept: ItemTypes.CARD,
     // canDrop: () => false,
-    drop({ fieldName: draggedFieldName, depth: draggedDepth }, monitor) {
-      // const end = monitor.isOver();
-      // const currentEnd = monitor.isOver({ shallow: true });
-      // console.error(1111, depth, draggedDepth, fieldName, draggedFieldName, end, currentEnd)
-    },
     hover({ fieldName: draggedFieldName, depth: draggedDepth }, monitor) {
       const end = monitor.isOver();
       const currentEnd = monitor.isOver({ shallow: true });
-      // if (depth - draggedDepth > 1 || draggedDepth - depth > 1) {
-      //   return;
-      // }
       const { y: offsetY } = monitor.getDifferenceFromInitialOffset();
-      if (currentEnd) {
-        console.error(
-          1111,
-          fieldName,
-          draggedFieldName,
-          lastDraggedFieldName,
-          lastDropFieldName,
-        );
-      }
-      if (
-        draggedFieldName !== fieldName &&
-        draggedFieldName !== lastDraggedFieldName &&
-        currentEnd &&
-        fieldName !== lastDropFieldName &&
-        fieldName
-      ) {
-        // 释放在容器的上、下面
-        lastDraggedFieldName = draggedFieldName;
-        lastDropFieldName = fieldName;
-        const { index: overIndex } = findCard(fieldName);
-        moveCard(draggedFieldName, overIndex, {
-          fieldName,
-          depth,
-          draggedDepth,
-          draggedFieldName,
-          offsetY,
-        });
-      }
+      console.error(
+        1111,
+        fieldName,
+        draggedFieldName,
+        lastDraggedFieldName,
+        lastDropFieldName,
+      );
+      // if (
+      //   draggedFieldName !== fieldName &&
+      //   draggedFieldName !== lastDraggedFieldName &&
+      //   currentEnd &&
+      //   fieldName !== lastDropFieldName &&
+      //   fieldName
+      // ) {
+      //   // 释放在容器的上、下面
+      //   lastDraggedFieldName = draggedFieldName;
+      //   lastDropFieldName = fieldName;
+      //   const { index: overIndex } = findCard(fieldName);
+      //   moveCard(draggedFieldName, overIndex, {
+      //     fieldName,
+      //     depth,
+      //     draggedDepth,
+      //     draggedFieldName,
+      //     offsetY,
+      //   });
+      // }
     },
   });
 

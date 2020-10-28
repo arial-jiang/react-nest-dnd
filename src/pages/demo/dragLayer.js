@@ -50,22 +50,10 @@ export default ({ end }) => {
           />
           {item?.children?.length > 0 &&
             onDomRender(item?.children, depth + 1, show)}
-          {item?.children?.length === 0 && (
-            <CardLayer
-              key={`${item?.fieldName}-${show}-layer-${DATA_EMPTY}`}
-              label={DATA_EMPTY}
-              show={show}
-              depth={depth}
-              isLast={item?.isLast}
-              hasChildren={item?.hasChildren}
-            />
-          )}
         </div>
       );
     });
   };
-
-  // console.error(1111, initialOffset, currentOffset)
 
   return (
     <div>
@@ -98,24 +86,12 @@ export default ({ end }) => {
           />
           {dragItem?.card?.children?.length > 0 &&
             onDomRender(dragItem?.card?.children, dragItem?.depth + 1, false)}
-          {dragItem?.card?.children?.length === 0 && (
-            <CardLayer
-              key={`${dragItem?.fieldName}-mask-${DATA_EMPTY}`}
-              label={DATA_EMPTY}
-              show={false}
-              isLast={dragItem?.isLast}
-              hasChildren={dragItem?.hasChildren}
-            />
-          )}
         </div>
       </div>
 
       <div className={classnames(styles.mask, styles.dragLayer, {})}>
         <div
-          className={classnames(styles.dragEle, {
-            [styles.container]: dragItem?.depth === 1,
-            [styles.group]: dragItem?.depth !== 1,
-          })}
+          className={classnames(styles.dragEle, {})}
           style={getItemStyles(currentOffset)}
         >
           <CardLayer
@@ -131,16 +107,6 @@ export default ({ end }) => {
           />
           {dragItem?.card?.children?.length > 0 &&
             onDomRender(dragItem?.card?.children, dragItem?.depth + 1, true)}
-          {dragItem?.card?.children?.length === 0 && (
-            <CardLayer
-              key={`${dragItem?.fieldName}-layer-${DATA_EMPTY}`}
-              label={DATA_EMPTY}
-              show={true}
-              depth={dragItem?.depth}
-              isLast={dragItem?.isLast}
-              hasChildren={dragItem?.hasChildren}
-            />
-          )}
         </div>
       </div>
     </div>

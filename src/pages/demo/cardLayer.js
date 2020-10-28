@@ -15,16 +15,11 @@ export default ({
 }) => {
   const color = show ? 'black' : 'white';
   const paddingLeft = depth ? `${depth}rem` : '1rem';
-  console.error(111, label, show, depth, noBorder, hasChildren);
+  // console.error(111, label, show, depth, noBorder, hasChildren);
   return (
     <div
-      className={classnames(styles.element, {
-        [styles.empty]: label === DATA_EMPTY,
-        [styles.noBorder]:
-          !show ||
-          (show && noBorder) ||
-          (show && label !== DATA_EMPTY && depth === 3),
-        [styles.eleBox]: hasChildren,
+      className={classnames(styles.element, styles.eleBox, {
+        [styles.noBorder]: !show,
         [styles.maskElement]: !show,
       })}
       style={{ color, paddingLeft }}

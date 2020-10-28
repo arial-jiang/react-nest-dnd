@@ -32,6 +32,12 @@ export default ({
       isLast,
       hasChildren,
     },
+    canDrag(monitor) {
+      if (fieldName?.includes(DATA_EMPTY)) {
+        return false;
+      }
+      return true;
+    },
     collect: monitor => ({
       isDragging: monitor.isDragging(),
     }),

@@ -13,10 +13,11 @@ export default () => {
 
   // 找到拖拽的项，返回选中项和索引
   const findCard = fieldName => {
-    const { card, index } = onGetIndex(fieldName, cards);
+    const { card, index, children } = onGetIndex(fieldName, cards);
     return {
       card,
       index,
+      children,
     };
   };
 

@@ -54,13 +54,16 @@ export default ({
         draggedFieldName !== lastDraggedFieldName &&
         !fieldName?.includes(draggedFieldName)
       ) {
-        lastDraggedFieldName = draggedFieldName;
-        // if (
-        //   (Math.abs(offsetY) > 10 && depth !== 1) ||
-        //   (Math.abs(offsetY) > 16 && depth === 1)
-        // ) {
-        console.error(2222, fieldName, draggedFieldName, offsetY);
         const { index: overIndex } = findCard(fieldName);
+        const { children: draggedNum } = findCard(draggedFieldName);
+        console.error(2222, fieldName, draggedFieldName, offsetY, draggedNum);
+        if (
+          (draggedDepth === 1 && draggedNum === 2) ||
+          (depth !== 1 && draggedNum === 1)
+        ) {
+          return;
+        }
+        lastDraggedFieldName = draggedFieldName;
         moveCard(draggedFieldName, overIndex, {
           fieldName,
           depth,
@@ -69,7 +72,6 @@ export default ({
           offsetY,
           lastFieldName,
         });
-        // }
       }
     },
   });

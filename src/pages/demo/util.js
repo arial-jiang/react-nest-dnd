@@ -1,10 +1,22 @@
 import update from 'immutability-helper';
 
+const onGetChildrenNum = (data, count, depth) => {
+  data?.forEach((item, index) => {
+    if (index === data?.length - 1) {
+      count.push(1);
+    }
+    if (item?.children) {
+      onGetChildrenNum(item?.children, count, depth + 1);
+    }
+  });
+  return count.length;
+};
+
 // 找到拖动的索引
 export const onGetIndex = (
   fieldName,
   data,
-  card = { index: [], card: null },
+  card = { index: [], card: null, children: 0 },
   lastIndex = [],
   depth = 1,
 ) => {
@@ -21,10 +33,12 @@ export const onGetIndex = (
           // 得到 正在拖拽的项的索（上层索引，当前索引）
           card.index = [...lastIndex, index];
           card.card = ele;
+          card.children = onGetChildrenNum(ele?.children, [], depth);
         } else {
           // 拖拽项是第一层数据
           card.index.push(index);
           card.card = ele;
+          card.children = onGetChildrenNum(ele?.children, [], depth);
         }
       } else {
         // 在第一层遍历的时候将 lastIndex 置[]

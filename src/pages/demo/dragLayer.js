@@ -8,7 +8,7 @@ import { DATA_EMPTY } from './constants';
 
 import styles from './index.less';
 
-export default () => {
+export default ({ end }) => {
   const {
     isDragging,
     dragItem,
@@ -84,6 +84,7 @@ export default () => {
             differenceOffset,
             dragItem?.depth,
             dragItem?.isLast,
+            end,
           )}
         >
           <CardLayer

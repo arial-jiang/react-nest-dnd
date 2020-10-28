@@ -8,7 +8,7 @@ import { onGetIndex, onCalcPos, onUpdate } from './util';
 
 import styles from './index.less';
 
-export default () => {
+export default ({ setEnd }) => {
   const [cards, setCards] = useState(ITEMS);
 
   // 找到拖拽的项，返回选中项和索引
@@ -59,6 +59,7 @@ export default () => {
     const key = onCalcPos(placeIndex, index, dropItem, cards, card, isAdd);
     const result = onUpdate(cards, key, card, dropItem);
     // console.error(111, fieldName, droppedFieldName, card, index, key, atIndex, dropItem);
+    setEnd(true);
     setCards(result);
   };
 
@@ -90,6 +91,7 @@ export default () => {
             hasChildren={item?.children?.length > 0}
             moveCard={moveCard}
             findCard={findCard}
+            setEnd={setEnd}
           />
           {item?.children?.length > 0 && onDomRender(item?.children, depth + 1)}
           {item?.children?.length === 0 && (
@@ -101,6 +103,7 @@ export default () => {
               lastFieldName={item?.fieldName}
               moveCard={moveCard}
               findCard={findCard}
+              setEnd={setEnd}
             />
           )}
         </div>

@@ -16,6 +16,7 @@ export default ({
   isLast,
   hasChildren,
   children,
+  setEnd,
 }) => {
   const [text, setText] = useState('');
   const { index: originalIndex, card } = findCard(fieldName);
@@ -43,6 +44,9 @@ export default ({
   const [, drop] = useDrop({
     accept: ItemTypes.CARD,
     // canDrop: () => false,
+    drop() {
+      setEnd(false);
+    },
     hover({ fieldName: draggedFieldName, depth: draggedDepth }, monitor) {
       const { y: offsetY } = monitor.getDifferenceFromInitialOffset();
       // console.error('hover: ', fieldName, draggedFieldName, offsetY, depth)

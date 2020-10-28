@@ -25,6 +25,21 @@ export const getFixedStyles = (
     WebkitTransform: transform,
   };
 };
+
+export const getItemStyles = currentOffset => {
+  if (!currentOffset) {
+    return {
+      display: 'none',
+    };
+  }
+  const { y } = currentOffset;
+  const transform = `translateY(${y}px)`;
+  return {
+    transform,
+    WebkitTransform: transform,
+  };
+};
+
 // export const getFixedStyles = (
 //   initialOffset,
 //   currentOffset,
@@ -75,17 +90,3 @@ export const getFixedStyles = (
 //     border,
 //   };
 // };
-
-export const getItemStyles = currentOffset => {
-  if (!currentOffset) {
-    return {
-      display: 'none',
-    };
-  }
-  const { y } = currentOffset;
-  const transform = `translateY(${y}px)`;
-  return {
-    transform,
-    WebkitTransform: transform,
-  };
-};

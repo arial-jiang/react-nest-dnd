@@ -65,12 +65,14 @@ export default ({ end }) => {
     });
   };
 
+  // console.error(1111, initialOffset, currentOffset)
+
   return (
     <div>
       {/* 拖拽后一个假的结构，用来覆盖未拖动的项 */}
       <div
         className={classnames(styles.mask, styles.maskLayer, {
-          [styles.offsetToBottom]: differenceOffset?.y > 0,
+          [styles.layer]: dragItem?.depth === 1,
         })}
       >
         <div

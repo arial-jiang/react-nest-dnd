@@ -60,7 +60,7 @@ export default ({
       ) {
         const { index: overIndex } = findCard(fieldName);
         const { children: draggedNum } = findCard(draggedFieldName);
-        console.error(2222, fieldName, draggedFieldName, offsetY, draggedNum);
+        // console.error(2222, fieldName, draggedFieldName, offsetY, draggedNum);
         if (
           (draggedDepth === 1 && draggedNum === 2) ||
           (depth !== 1 && draggedNum === 1)

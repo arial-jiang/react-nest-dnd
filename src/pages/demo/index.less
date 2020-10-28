@@ -16,6 +16,7 @@
   background-color: white;
   cursor: move;
   border-bottom: 1px solid gray;
+  box-sizing: border-box;
 }
 
 .eleBox {
@@ -36,7 +37,6 @@
   width: 400px;
   margin-bottom: 10px;
   box-sizing: border-box;
-  padding-bottom: 6px;
   background-color: white;
 }
 
@@ -52,9 +52,11 @@
   left: 8px;
   width: 400px;
   height: 100%;
+  box-sizing: border-box;
 }
 
 .maskLayer {
+  border: none;
   z-index: 99;
 }
 
@@ -62,10 +64,15 @@
   z-index: 100;
 }
 
-.offsetToBottom {
+.layer {
   top: -1px;
+  height: calc(100% + 1px);
 }
 
 .dragEle {
   border: 1px solid gray;
+}
+
+.maskElement {
+  padding: 0.5rem 1rem 0.3rem;
 }

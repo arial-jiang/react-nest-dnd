@@ -15,6 +15,7 @@ export default ({
 }) => {
   const color = show ? 'black' : 'white';
   const paddingLeft = depth ? `${depth}rem` : '1rem';
+  console.error(111, label, show, depth, noBorder, hasChildren);
   return (
     <div
       className={classnames(styles.element, {
@@ -24,6 +25,7 @@ export default ({
           (show && noBorder) ||
           (show && label !== DATA_EMPTY && depth === 3),
         [styles.eleBox]: hasChildren,
+        [styles.maskElement]: !show,
       })}
       style={{ color, paddingLeft }}
     >

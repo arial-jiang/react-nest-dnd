@@ -12,6 +12,7 @@ export default ({
   isLast,
   hasChildren,
   children,
+  dragDepth,
 }) => {
   const color = show ? 'black' : 'white';
   const paddingLeft = depth ? `${depth}rem` : '1rem';
@@ -20,7 +21,8 @@ export default ({
     <div
       className={classnames(styles.element, styles.eleBox, {
         [styles.noBorder]: !show,
-        [styles.maskElement]: !show,
+        [styles.maskElement]: dragDepth === 2,
+        [styles.maskElementBox]: !show && dragDepth !== 2,
       })}
       style={{ color, paddingLeft }}
     >

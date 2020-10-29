@@ -41,6 +41,7 @@ export default ({ end }) => {
             depth={depth}
             isLast={item?.isLast}
             hasChildren={item?.hasChildren}
+            dragDepth={dragItem?.depth}
           />
           {item?.children?.length > 0 &&
             onDomRender(item?.children, depth + 1, show)}
@@ -77,6 +78,7 @@ export default ({ end }) => {
             show={false}
             isLast={dragItem?.isLast}
             hasChildren={dragItem?.hasChildren}
+            dragDepth={dragItem?.depth}
           />
           {dragItem?.card?.children?.length > 0 &&
             onDomRender(dragItem?.card?.children, dragItem?.depth + 1, false)}
@@ -99,6 +101,7 @@ export default ({ end }) => {
             depth={dragItem?.depth}
             isLast={dragItem?.isLast}
             hasChildren={dragItem?.hasChildren}
+            dragDepth={dragItem?.depth}
           />
           {dragItem?.card?.children?.length > 0 &&
             onDomRender(dragItem?.card?.children, dragItem?.depth + 1, true)}

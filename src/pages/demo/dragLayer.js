@@ -32,13 +32,7 @@ export default ({ end }) => {
     }
     return data?.map(item => {
       return (
-        <div
-          className={classnames({
-            [styles.container]: depth === 1,
-            [styles.group]: depth !== 1,
-          })}
-          key={`${item?.fieldName}-${show}-layer-c`}
-        >
+        <div key={`${item?.fieldName}-${show}-layer-c`}>
           <CardLayer
             key={`${item?.fieldName}-${show}-layer-c`}
             label={item?.label}
@@ -89,9 +83,10 @@ export default ({ end }) => {
         </div>
       </div>
 
-      <div className={classnames(styles.mask, styles.dragLayer, {})}>
+      <div className={classnames(styles.mask, styles.dragLayer)}>
         <div
-          className={classnames(styles.dragEle, {})}
+          className={classnames(styles.dragEle)}
+          // className={classnames(styles.dragEle, {[styles.noBorder]: dragItem?.hasChildren && dragItem?.depth === 1})}
           style={getItemStyles(currentOffset)}
         >
           <CardLayer

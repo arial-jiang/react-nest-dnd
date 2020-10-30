@@ -87,8 +87,9 @@ export default ({ end }) => {
 
       <div className={classnames(styles.mask, styles.dragLayer)}>
         <div
-          className={classnames(styles.dragEle)}
-          // className={classnames(styles.dragEle, {[styles.noBorder]: dragItem?.hasChildren && dragItem?.depth === 1})}
+          className={classnames(styles.dragEle, {
+            [styles.noBorder]: dragItem?.hasChildren,
+          })}
           style={getItemStyles(currentOffset)}
         >
           <CardLayer

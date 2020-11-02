@@ -12,5 +12,6 @@ export default defineConfig({
     { path: '/dragNotInside', component: '@/pages/dragNotInside' },
     { path: '/sortable', component: '@/pages/sortable' },
     { path: '/simpleSortable', component: '@/pages/simpleSortable' },
+    { path: '/v1', component: '@/pages/v1' },
   ],
 });

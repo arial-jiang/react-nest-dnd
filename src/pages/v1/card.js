@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import classnames from 'classnames';
 import { getEmptyImage } from 'react-dnd-html5-backend';
@@ -20,7 +20,6 @@ export default ({
 }) => {
   const [text, setText] = useState('');
   const { index: originalIndex, card } = findCard(fieldName);
-  const ref = useRef(null);
   let lastDraggedFieldName = '';
   let lastDropFieldName = '';
   const [{ isDragging }, drag, preview] = useDrag({
@@ -56,9 +55,6 @@ export default ({
       setEnd(false);
     },
     hover({ fieldName: draggedFieldName, depth: draggedDepth }, monitor) {
-      if (!ref.current) {
-        return;
-      }
       const { y: offsetY } = monitor.getDifferenceFromInitialOffset();
       // console.error('hover: ', fieldName, draggedFieldName, offsetY, depth)
       if (!fieldName || !draggedFieldName) {
@@ -70,7 +66,7 @@ export default ({
         !fieldName?.includes(draggedFieldName) &&
         fieldName !== lastDropFieldName
       ) {
-        console.error(2222, fieldName, draggedFieldName, offsetY);
+        // console.error(2222, fieldName, draggedFieldName, offsetY);
         const { index: overIndex } = findCard(fieldName);
         const { children: draggedNum } = findCard(draggedFieldName);
         if (
@@ -79,27 +75,6 @@ export default ({
             fieldName?.includes(DATA_EMPTY)) ||
           (depth !== 1 && draggedNum === 1 && fieldName?.includes(DATA_EMPTY))
         ) {
-          return;
-        }
-        const hoverBoundingRect = ref.current?.getBoundingClientRect();
-
-        // Get vertical middle
-        const hoverMiddleY =
-          (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-
-        // Determine mouse position
-        const clientOffset = monitor.getClientOffset();
-
-        // Get pixels to the top
-        const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-
-        // Dragging downwards
-        if (offsetY > 0 && hoverClientY < hoverMiddleY) {
-          return;
-        }
-
-        // Dragging upwards
-        if (offsetY < 0 && hoverClientY > hoverMiddleY) {
           return;
         }
         lastDraggedFieldName = draggedFieldName;
@@ -119,12 +94,10 @@ export default ({
   const opacity = isDragging ? 0 : 1;
   const paddingLeft = depth ? `${depth}rem` : '1rem';
 
-  drag(drop(ref));
-
   return (
     <div
       key={fieldName}
-      ref={ref}
+      ref={node => drag(drop(node))}
       className={classnames(styles.element, {
         [styles.empty]: fieldName?.includes(DATA_EMPTY),
         [styles.noBorder]:

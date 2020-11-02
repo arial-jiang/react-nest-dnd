@@ -1,0 +1,83 @@
+.container {
+  border: 1px solid gray;
+  border-bottom: none;
+  width: 400px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.group {
+  box-sizing: border-box;
+}
+
+// card
+.element {
+  padding: 10px 15px 5px;
+  background-color: white;
+  cursor: move;
+  border-bottom: 1px solid gray;
+  box-sizing: border-box;
+}
+
+.eleBox {
+  padding-bottom: 15px;
+}
+
+.empty {
+  font-size: 0;
+  padding: 10px 0 0;
+}
+
+// draglayer
+.maskContainer {
+  width: 400px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  background-color: white;
+}
+
+.maskFrame {
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
+}
+
+.mask {
+  position: fixed;
+  pointer-events: none;
+  top: 0px;
+  left: 8px;
+  width: 400px;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.maskLayer {
+  border: none;
+  z-index: 99;
+}
+
+.dragLayer {
+  z-index: 100;
+}
+
+.layer {
+  top: -1px;
+  height: calc(100% + 1px);
+}
+
+.dragEle {
+  border: 1px solid gray;
+  // border-bottom: none;
+}
+
+.maskElement {
+  padding: 10px 15px 15px;
+}
+
+.maskElementBox {
+  padding: 10px 15px 17px;
+}
+
+.noBorder {
+  border-bottom: none;
+}

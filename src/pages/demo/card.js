@@ -21,6 +21,7 @@ export default ({
   const [text, setText] = useState('');
   const { index: originalIndex, card } = findCard(fieldName);
   let lastDraggedFieldName = '';
+  let lastDropFieldName = '';
   const [{ isDragging }, drag, preview] = useDrag({
     item: {
       type: ItemTypes.CARD,
@@ -62,9 +63,10 @@ export default ({
       if (
         draggedFieldName !== fieldName &&
         draggedFieldName !== lastDraggedFieldName &&
-        !fieldName?.includes(draggedFieldName)
+        !fieldName?.includes(draggedFieldName) &&
+        fieldName !== lastDropFieldName
       ) {
-        console.error(2222, fieldName, draggedFieldName, offsetY);
+        // console.error(2222, fieldName, draggedFieldName, offsetY);
         const { index: overIndex } = findCard(fieldName);
         const { children: draggedNum } = findCard(draggedFieldName);
         if (
@@ -76,6 +78,7 @@ export default ({
           return;
         }
         lastDraggedFieldName = draggedFieldName;
+        lastDropFieldName = fieldName;
         moveCard(draggedFieldName, overIndex, {
           fieldName,
           depth,

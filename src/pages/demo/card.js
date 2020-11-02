@@ -64,7 +64,7 @@ export default ({
         draggedFieldName !== lastDraggedFieldName &&
         !fieldName?.includes(draggedFieldName)
       ) {
-        // console.error(2222, fieldName, draggedFieldName, offsetY);
+        console.error(2222, fieldName, draggedFieldName, offsetY);
         const { index: overIndex } = findCard(fieldName);
         const { children: draggedNum } = findCard(draggedFieldName);
         if (

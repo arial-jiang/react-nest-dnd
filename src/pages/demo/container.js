@@ -29,14 +29,6 @@ export default ({ setEnd }) => {
   const moveCard = (fieldName, atIndex, dropItem) => {
     const { card, index } = findCard(fieldName);
     const { depth, lastFieldName, fieldName: droppedFieldName } = dropItem;
-    // console.error(
-    //   'before: ',
-    //   droppedFieldName,
-    //   lastFieldName,
-    //   placeIndex,
-    //   index,
-    //   depth,
-    // );
     let placeIndex = atIndex;
     let isAdd = false;
     if (droppedFieldName?.includes(DATA_EMPTY)) {
@@ -48,14 +40,6 @@ export default ({ setEnd }) => {
       // if (placeIndex === index || index?.length === 0 || droppedFieldName?.includes(lastFieldName)) {
       return;
     }
-    // console.error(
-    //   'after: ',
-    //   droppedFieldName,
-    //   lastFieldName,
-    //   placeIndex,
-    //   index,
-    //   depth,
-    // );
     const key = onCalcPos(placeIndex, index, dropItem, cards, card, isAdd);
     const result = onUpdate(cards, key, card, dropItem);
     // console.error(111, fieldName, droppedFieldName, card, index, key, atIndex, dropItem);
